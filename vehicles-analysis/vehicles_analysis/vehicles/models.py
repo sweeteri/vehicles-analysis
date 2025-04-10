@@ -1,5 +1,5 @@
 from django.db import models
-
+from django.core.validators import MinValueValidator
 
 class Vehicle(models.Model):
     class Meta:
@@ -30,6 +30,7 @@ class ICEVehicle(Vehicle):
         verbose_name="Тип топлива"
     )
     fuel_consumption = models.FloatField(
+        validators=[MinValueValidator(0)],
         verbose_name="Расход топлива (л/100 км)"
     )
 
@@ -39,9 +40,11 @@ class ICEVehicle(Vehicle):
 
 class EVVehicle(Vehicle):
     battery_capacity = models.FloatField(
+        validators=[MinValueValidator(0)],
         verbose_name="Ёмкость батареи (кВт·ч)"
     )
     energy_consumption = models.FloatField(
+        validators=[MinValueValidator(0)],
         verbose_name="Энергопотребление (кВт·ч/100 км)"
     )
 
@@ -51,11 +54,13 @@ class EVVehicle(Vehicle):
 
 class HEVVehicle(Vehicle):
     fuel_consumption = models.FloatField(
+        validators=[MinValueValidator(0)],
         verbose_name="Расход топлива (л/100 км)",
         null=True,
         blank=True
     )
     energy_consumption = models.FloatField(
+        validators=[MinValueValidator(0)],
         verbose_name="Энергопотребление (кВт·ч/100 км)",
         null=True,
         blank=True
